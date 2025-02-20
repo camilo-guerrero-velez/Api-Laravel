@@ -18,7 +18,7 @@ class VistaController extends Controller
     public function index()
     {
         $response = Http::get('http://localhost:8000/api/users');
-        $data = $response->json(); 
+        $data = $response->json();
 
 
         $users = $data['users'] ?? [];
@@ -42,12 +42,24 @@ class VistaController extends Controller
         //
     }
 
+    public function editar(string $id)
+    {
+        $user = Http::get("http://localhost:8000/api/users/{$id}")->json();
+        return view('viewEditar', compact('user'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->only(['nombre', 'apellido', 'email', 'telefono', 'edad']);
+        $response = Http::put("http://localhost:8000/api/users/{$id}", $data);
+
+        if ($response->failed()) {
+            return redirect()->back()->with('error', 'Error al actualizar el usuario.');
+        }
+
+        return redirect()->route('index')->with('success', 'Usuario actualizado correctamente.');
     }
 
     /**

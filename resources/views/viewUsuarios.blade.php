@@ -26,12 +26,13 @@
                                 <td>{{ $user['telefono'] }}</td>
                                 <td>{{ $user['edad'] }}</td>
                                 <td>
-                                    <form action="" method="GET">
-                                        <button class="btn btn-outline-warning btn-sm">
-                                            Editar
-                                        </button>
-                                    </form>
+                                    <a href="{{ route('editar', ['id' => $user['id']]) }}"
+                                        class="btn btn-outline-warning btn-sm">
+
+                                        Editar
+                                    </a>
                                 </td>
+
                                 <td>
                                     <form action="">
                                         <button class="btn btn-danger btn-sm" type="submit"> Eliminar </button>
