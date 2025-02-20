@@ -3,15 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class VistaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function login()
+    {
+        return view('viewLogin');
+    }
+
     public function index()
     {
-        return view('viewUsuarios');
+        $response = Http::get('http://localhost:8000/api/users');
+        $data = $response->json(); 
+
+
+        $users = $data['users'] ?? [];
+
+        return view('viewUsuarios', compact('users'));
     }
 
     /**
@@ -19,7 +31,7 @@ class VistaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('viewCrearUsuario');
     }
 
     /**
